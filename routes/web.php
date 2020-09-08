@@ -17,4 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth.basic'], function () {
+    // User needs to be authenticated to enter here.
+    Route::get('/', function ()    {
+        return view('welcome');
+    });  
+});
